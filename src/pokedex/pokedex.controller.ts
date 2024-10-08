@@ -1,14 +1,13 @@
 import { Controller, Get, Query, Param } from '@nestjs/common';
 import { PokedexService } from './pokedex.service';
-import { Pokemon } from './pokemon.model';
 
 @Controller('pokedex')
 export class PokedexController {
   constructor(private readonly pokedexService: PokedexService) {}
 
   @Get('pokemons')
-  async getPokemons(@Query('limit') limit: number = 10) {
-    return await this.pokedexService.fetchPokemons(limit);
+  async getPokemons(@Query('limit') limit: number = 10, @Query('offset') offset: number = 0) {
+    return await this.pokedexService.fetchPokemons(limit, offset);
   }
 
   @Get('pokemon/:name')
